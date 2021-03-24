@@ -1,0 +1,63 @@
+header {
+  background: var(--primary-color);
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  align-items: baseline;
+  padding: 0 15px;
+}
+
+header .logo {
+  grid-column: 1 / span 2;
+  padding: 2rem 0;
+  min-width: 161px;
+}
+
+header .logo .material-icons {
+  font-size: 36px;
+  margin-right: 5px;
+}
+
+nav {
+  grid-column: 3 / span 17;
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-start;
+}
+nav ul li a {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  transition: all 0.7s;
+}
+
+nav ul li a {
+  display: flex;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 25px;
+  position: relative;
+  margin: 0 20px;
+  transition: all 0.7s;
+  align-items: center;
+}
+nav ul li a .material-icons {
+  margin-right: 8px;
+  padding: 5px;
+  background: var(--text-color);
+  border-radius: 50%;
+  color: var(--bg-color);
+}
+
+nav ul li:hover a {
+  background: var(--text-color);
+  padding: 5px 20px;
+  transform: translateX(-10px);
+  color: var(--bg-color);
+}
+
+nav ul li:hover a .material-icons {
+  background: transparent;
+  transition: all 0.7s;
+}

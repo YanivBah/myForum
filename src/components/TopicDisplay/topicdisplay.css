@@ -1,0 +1,45 @@
+.topic-display {
+  height: 100px;
+  display: flex;
+  background: #d8dee9;
+  overflow: hidden;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 9px 0;
+}
+.topic-display img {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.topic-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.topic-last-post {
+  margin-left: auto;
+  align-self: center;
+  font-size: 1.6rem;
+  margin-right: 15px;
+}
+.topic-last-post h4 span {
+  font-size: inherit;
+}
+.topic-last-post .row {
+  display: flex;
+  align-items: baseline;
+}
+.topic-last-post h4 {
+  margin-right: 10px;
+}
+.topic-last-post h4 span {
+  font-weight: 200;
+}
+.topic-last-post h4 span span {
+  font-size: 1.6rem;
+}
