@@ -1,6 +1,6 @@
 import React from "react";
 import './form.css';
-import Input from "../Input/Input";
+import Input from "../Input/Input"
 import {useParams} from "react-router-dom";
 
 class Form extends React.Component {
@@ -14,14 +14,18 @@ class Form extends React.Component {
   handleClick = (e) => {
     e.preventDefault();
     this.setState({created: true});
-    this.props.details.onClick(e);
+    // this.props.details.onClick(e);
     console.log(this.props);
   };
 
   form = () => {
-    return(
+    return (
       <React.Fragment>
-        <h2>{this.props.details.header}</h2>
+        <h1>{this.props.details.header}</h1>
+        <div className="divider"></div>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores autem deleniti corrupti ipsam odit impedit possimus quo placeat quaerat nisi.</p>
+        <div className="divider"></div>
+
         {this.createInputs()}
         <button onClick={this.handleClick}>
           {this.props.details.buttonText}
@@ -32,10 +36,10 @@ class Form extends React.Component {
 
   render() {
     return (
-      <form className="container form">
+      <div className="container form">
         {!this.state.created && this.form()}
         {this.state.created && <h3>Done.</h3>}
-      </form>
+      </div>
     );
   }
 }
