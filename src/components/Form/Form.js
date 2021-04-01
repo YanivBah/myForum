@@ -1,47 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import './form.css';
 import Input from "../Input/Input"
-import {useParams} from "react-router-dom";
 
-class Form extends React.Component {
-  state = {created: false}
-  createInputs = () => {
-    return this.props.details.inputs.map((input) => {
+const Form = props => {
+  const [created, setCreated] = useState(false);
+
+  const createInputs = () => {
+    return props.details.inputs.map((input) => {
       return <Input name={input.name} title={input.title} />;
     });
   };
 
-  handleClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    this.setState({created: true});
-    // this.props.details.onClick(e);
-    console.log(this.props);
+    setCreated(true);
+    // props.details.onClick(e);
+    console.log(props);
   };
 
-  form = () => {
+  const form = () => {
     return (
       <React.Fragment>
-        <h1>{this.props.details.header}</h1>
+        <h1>{props.details.header}</h1>
         <div className="divider"></div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores autem deleniti corrupti ipsam odit impedit possimus quo placeat quaerat nisi.</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
+          autem deleniti corrupti ipsam odit impedit possimus quo placeat
+          quaerat nisi.
+        </p>
         <div className="divider"></div>
 
-        {this.createInputs()}
-        <button onClick={this.handleClick}>
-          {this.props.details.buttonText}
+        {createInputs()}
+        <button onClick={handleClick}>
+          {props.details.buttonText}
         </button>
       </React.Fragment>
     );
-  }
+  };
 
-  render() {
-    return (
-      <div className="container form">
-        {!this.state.created && this.form()}
-        {this.state.created && <h3>Done.</h3>}
-      </div>
-    );
-  }
+  return (
+    <div className="container form">
+      {!created && form()}
+      {created && <h3>Done.</h3>}
+    </div>
+  );
 }
 
 export default Form;
