@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+
+
 import './topicdisplay.css';
 
 const array = [
@@ -42,19 +45,19 @@ const array = [
 ];
 
 const TopicDisplay = props => {
-  return array.map(({ title, description, image }) => {
+  return array.map(({ title, description, image },index) => {
     return (
-      <div className="topic-display">
-        <a href={`/${title.toLowerCase()}`}>
+      <div className="topic-display" key={`topic${index}`}>
+        <Link to={`/topic/${title.toLowerCase()}`}>
           <img
             src="https://source.unsplash.com/featured/?conversation"
             alt="topic avatar"
           />
-        </a>
+        </Link>
         <div className="topic-details">
-          <a href={`/${title.toLowerCase()}`}>
+          <Link to={`/topic/${title.toLowerCase()}`}>
             <h3>{title}</h3>
-          </a>
+          </Link>
           <p>{description}</p>
         </div>
         <div className="topic-last-post">

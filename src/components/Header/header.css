@@ -4,6 +4,7 @@ header {
   grid-template-columns: repeat(16, 1fr);
   align-items: baseline;
   padding: 0 15px;
+  user-select: none;
 }
 
 header .logo {
@@ -29,7 +30,7 @@ nav ul li a {
   display: block;
   padding: 5px 10px;
   text-decoration: none;
-  transition: all 0.7s;
+  transition: all 0.3s;
 }
 
 nav ul li a {
@@ -59,5 +60,5 @@ nav ul li:hover a {
 
 nav ul li:hover a .material-icons {
   background: transparent;
-  transition: all 0.7s;
+  transition: all 0.3s;
 }

@@ -13,10 +13,10 @@ const Header = props => {
     return array.map((link, index) => {
       return (
         <li key={`nav${index}`}>
-          <a href={`/${link.name.toLowerCase().replace(" ", "")}`}>
+          <Link to={`/${link.name.toLowerCase().replace(" ", "")}`}>
             <span className="material-icons">{link.icon}</span>
             {link.name}
-          </a>
+          </Link>
         </li>
       );
     });

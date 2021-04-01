@@ -18,6 +18,7 @@
   height: 100px;
   margin-right: 10px;
   object-fit: cover;
+  user-select: none;
 }
 
 .topic-details {

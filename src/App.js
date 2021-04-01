@@ -6,6 +6,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import TopicDisplay from './components/TopicDisplay/TopicDisplay';
 import Form from './components/Form/Form';
+import TopicPage from "./components/TopicPage/TopicPage";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -53,15 +54,26 @@ const App = () => {
       <BrowserRouter>
         <Switch />
         <Header name="myForum" />
+        {/* Topic at homepage */}
+        {/* <Route path="/home" exact render={(props) => <TopicDisplay />} /> */}
         <Route path="/home" exact>
           <TopicDisplay />
         </Route>
-        <Route path="/login" exact>
-          <div>You not logged in</div>
+        <Route path="/topic/:topicName">
+          <TopicPage/>
         </Route>
-        <Route path="/contactus" exact>
-          <Form details={forms[0]} />
-        </Route>
+        {/* Login page */}
+        <Route
+          path="/login"
+          exact
+          render={(props) => <div>You not logged in</div>}
+        />
+        {/* CreateTopic page */}
+        <Route
+          path="/contactus"
+          exact
+          render={(props) => <Form details={forms[0]} />}
+        />
         <Switch />
       </BrowserRouter>
     </React.Fragment>
