@@ -9,6 +9,7 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   margin: 9px 0;
   transition: 0.3s;
+  position: relative;
 }
 .topic-display:hover {
   box-shadow: 0 8px 20px 0 rgb(42 51 83 / 12%), 0 5px 5px rgb(0 0 0 / 6%);
@@ -47,4 +48,22 @@
 }
 .topic-last-post h4 span span {
   font-size: 1.6rem;
+}
+
+.topic-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+}
+.topic-meta div {
+  text-align: center;
+  margin: 0 20px;
+}
+.topic-meta h4 {
+  border-top: 1.5px solid rgb(153, 153, 153);
+  color: rgb(153, 153, 153);
 }

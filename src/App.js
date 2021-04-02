@@ -10,10 +10,11 @@ import TopicPage from "./components/TopicPage/TopicPage";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [topics, setTopics] = useState([]);
 
   const fetchData = async () => {
     const data = await api.get("topics");
-     console.log(data);
+     setTopics(data.data);
   };
 
   const createNewTopic = (e) => {
@@ -57,7 +58,7 @@ const App = () => {
         {/* Topic at homepage */}
         {/* <Route path="/home" exact render={(props) => <TopicDisplay />} /> */}
         <Route path="/home" exact>
-          <TopicDisplay />
+          <TopicDisplay topics={topics} />
         </Route>
         <Route path="/topic/:topicName">
           <TopicPage/>
