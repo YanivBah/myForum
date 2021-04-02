@@ -1,18 +1,22 @@
 // import axios from 'axios';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Component } from "react";
 import api from './api';
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, useLocation } from "react-router-dom";
 import './App.css';
 import Header from './components/Header/Header';
 import TopicDisplay from './components/TopicDisplay/TopicDisplay';
 import Form from './components/Form/Form';
 import TopicPage from "./components/TopicPage/TopicPage";
+import { Editor } from "@tinymce/tinymce-react";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [topics, setTopics] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const fetchData = async () => {
+    const users = await api.get("users");
+    setUsers(users.data);
     const data = await api.get("topics");
      setTopics(data.data);
   };
@@ -102,14 +106,30 @@ const App = () => {
       <BrowserRouter>
         <Switch />
         <Header name="myForum" />
+        <div>
+          {/* <Editor
+            apiKey="2viqoomhb51lmkju04axbr2u0tvkmoc0g51wpfiuhbxs9vi3"
+            cloudChannel="5-stable"
+            disabled={false}
+            id="uuid"
+            init={{}}
+            initialValue=""
+            inline={false}
+            onEditorChange={console.log("howdy")}
+            plugins=""
+            tagName="div"
+            textareaName=""
+            toolbar=""
+            value=""
+          /> */}
+        </div>
         {/* Topic at homepage */}
-        {/* <Route path="/home" exact render={(props) => <TopicDisplay />} /> */}
         <Route path="/home" exact>
           <TopicDisplay topics={topics} />
         </Route>
         {/* Topic Page */}
         <Route path="/topic/:topicID" exact>
-          <TopicPage topics={topics} />
+          <TopicPage topics={topics} users={users} />
         </Route>
         {/* Login page */}
         <Route
