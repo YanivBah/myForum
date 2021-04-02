@@ -3,4 +3,47 @@
   padding: 2rem 2rem;
   border-radius: 5px;
   box-shadow: 0 5px 12px 0 rgb(42 51 83 / 12%), 0 0 5px rgb(0 0 0 / 6%);
+  margin: 2rem 5rem;
+}
+.topic-header {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.topic-header img {
+  width: 250px;
+  border-radius: 50%;
+  box-shadow: 0 5px 12px 0 rgb(42 51 83 / 12%), 0 0 5px rgb(0 0 0 / 6%);
+}
+
+.topic-header .info {
+  margin-left: 2rem;
+}
+
+.topic-header .moderators {
+  /* border: 1px solid red; */
+  margin-left: auto;
+  align-self: flex-start;
+}
+.topic-header .controls {
+  margin-top: 50px;
+}
+.topic-header .controls .btn {
+  display: inline-block;
+  background: rgb(216, 216, 216);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.topic-header .controls .btn:hover {
+  background: rgba(216, 216, 216, 0.6);
+}
+.topic-header .controls .btn a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.topic-header .controls .btn span {
+  margin-right: 0.5rem;
 }

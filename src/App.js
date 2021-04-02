@@ -30,11 +30,48 @@ const App = () => {
     api.post("topics", newTopic);
   };
 
-  const createNewThread = () => {};
+  const createNewThread = async () => {
+    const {data} = await api.get("topics");
+    const topic = data.find(topic => topic.id === "1");
+    const thread = {
+      tag: "Help",
+      title: "I need to help to install ubuntu",
+      content: "Please help me to install ubuntu with dualboot windows",
+      createdBy: "1",
+      editedAt: null,
+      id: `1`,
+      posts: [],
+    };
+    topic.threads.push(thread);
+    api.put(`topics/${topic.id}`, topic);
+    console.log('Created new thread');
+    fetchData();
+  };
   
-  const registerAccount = () => {};
+  const registerAccount = () => {
+    const user = {
+      username: "Yaniv",
+      avatar: "1",
+      email: "ybahalker@gmail.com",
+      password: "1234",
+      moderator: ["1","2","3","4"],
+      settings: {
+        hideEmail: true,
+        hidePosts: true,
+        hideThreads: true,
+      },
+    };
+    api.post("users", user);
+    console.log('registered');
+  };
   
-  useEffect(() => fetchData(), []);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // useEffect(() => {
+  //   createNewThread();
+  // }, []);
 
   const forms = [
     {
@@ -45,6 +82,16 @@ const App = () => {
         { name: "topic", title: "Topic" },
         { name: "description", title: "Description" },
         { name: "image", title: "Image Location" },
+      ],
+    },
+    {
+      header: "Create New Thread",
+      buttonText: "Create",
+      onClick: createNewThread,
+      inputs: [
+        { name: "Tag", title: "Tag" },
+        { name: "title", title: "Title" },
+        { name: "content", title: "Content" },
       ],
     },
   ];
@@ -60,8 +107,9 @@ const App = () => {
         <Route path="/home" exact>
           <TopicDisplay topics={topics} />
         </Route>
-        <Route path="/topic/:topicName">
-          <TopicPage/>
+        {/* Topic Page */}
+        <Route path="/topic/:topicID" exact>
+          <TopicPage topics={topics} />
         </Route>
         {/* Login page */}
         <Route
@@ -75,6 +123,10 @@ const App = () => {
           exact
           render={(props) => <Form details={forms[0]} />}
         />
+        {/* CreateThread page */}
+        <Route path="/topic/:topicID/newthread" exact>
+          <Form details={forms[1]} />
+        </Route>
         <Switch />
       </BrowserRouter>
     </React.Fragment>

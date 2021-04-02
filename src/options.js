@@ -6,7 +6,7 @@ const options = {
       header: "Create New Topic",
       description: "Here you can create new topic for the forum",
       buttonText: "Create",
-      onclick: "function h-e-r-e",
+      onClick: "function h-e-r-e",
       inputs: [
         { name: "topic",
           type: "text",
@@ -39,3 +39,34 @@ const options = {
     register: {},
   },
 };
+
+{
+  id: "1",
+  createdAt: "",
+  username: "",
+  avatar: "",
+  email: "",
+  settings: {
+    hideEmail: false,
+    hidePosts: false,
+    hideThreads: false,
+  },
+}
+
+    {
+        "id": "1",
+        "title": "General",
+        "description": "Here you can talk about everything.",
+        "threads": [],
+        "moderators": []
+    },
+
+[
+  {
+    type: "",
+    title: "",
+    content: "",
+    createdBy: "",
+    posts: [],
+  }
+]
