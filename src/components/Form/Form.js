@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useParams } from 'react-router-dom';
+
 import './form.css';
 import Input from "../Input/Input";
 import Dropdown from '../Dropdown/Dropdown';
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 
-const Form = ({ settings }) => {
+const Form = ({ settings, func }) => {
   const [created, setCreated] = useState(false);
   const [controlled, setControlled] = useState([]);
   const itemsRef = useRef([]);
+  const params = useParams();
 
-  useEffect(() => console.log(itemsRef),[itemsRef]);
+  useEffect(() => console.log(itemsRef), [itemsRef]);
 
   const createRef = (el) => {
-     if (!itemsRef.current.includes(el)) {
-       itemsRef.current.push(el);
-     }
+    if (!itemsRef.current.includes(el)) {
+      itemsRef.current.push(el);
+    }
   };
 
   const createFormElements = () => {
@@ -46,7 +49,9 @@ const Form = ({ settings }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    func(itemsRef.current,params);
     setCreated(true);
+
     // details.onClick(e);
   };
 

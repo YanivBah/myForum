@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import TopicDisplay from './components/TopicDisplay/TopicDisplay';
 import Form from './components/Form/Form';
 import TopicPage from "./components/TopicPage/TopicPage";
+import ThreadPage from "./components/ThreadPage/ThreadPage";
 import options from './options';
 import { Editor } from "@tinymce/tinymce-react";
 
@@ -35,20 +36,23 @@ const App = () => {
     api.post("topics", newTopic);
   };
 
-  const createNewThread = async () => {
+  const createNewThread = async (e,{topicID}) => {
     const {data} = await api.get("topics");
-    const topic = data.find(topic => topic.id === "1");
+    const topic = data.find(topic => topic.id === topicID);
+    const id =
+      topic.threads.length === 0 ? "1" : `${parseInt(topic.threads[0].id) + 1}`;
     const thread = {
-      tag: "Help",
-      title: "I need to help to install ubuntu",
-      content: "Please help me to install ubuntu with dualboot windows",
+      tag: e[0].value,
+      title: e[1].value,
+      content: e[2].currentContent,
+      createdAt: new Date(),
       createdBy: "1",
       editedAt: null,
-      id: `1`,
+      id: id,
       posts: [],
     };
-    topic.threads.push(thread);
-    api.put(`topics/${topic.id}`, topic);
+    topic.threads.unshift(thread);
+    api.put(`topics/${topicID}`, topic);
     console.log('Created new thread');
     fetchData();
   };
@@ -74,60 +78,34 @@ const App = () => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   createNewThread();
-  // }, []);
-
-  const forms = [
-    {
-      header: "Create New Topic",
-      buttonText: "Create",
-      onClick: createNewTopic,
-      inputs: [
-        { name: "topic", title: "Topic" },
-        { name: "description", title: "Description" },
-        { name: "image", title: "Image Location" },
-      ],
-    },
-    {
-      header: "Create New Thread",
-      buttonText: "Create",
-      onClick: createNewThread,
-      inputs: [
-        { name: "Tag", title: "Tag" },
-        { name: "title", title: "Title" },
-        { name: "content", title: "Content" },
-      ],
-    },
-  ];
-
-
   return (
     <React.Fragment>
       <BrowserRouter>
         <Switch />
-        <Header name="myForum" />
+        <Header name="myForum" settings={options.header} />
         {/* Topic at homepage */}
-        <Route path="/home" exact>
+        <Route path="/" exact>
           <TopicDisplay topics={topics} />
         </Route>
         {/* Topic Page */}
         <Route path="/topic/:topicID" exact>
           <TopicPage topics={topics} users={users} />
         </Route>
+        {/* Thread Page */}
+        <Route path="/topic/:topicID/thread/:threadID" exact>
+          <ThreadPage topics={topics} users={users} />
+        </Route>
         {/* Login page */}
-        <Route
-          path="/login"
-          exact
-          render={(props) => <div>You not logged in</div>}
-        />
+        <Route path="/login" exact>
+          <div>You not logged in</div>
+        </Route>
         {/* CreateTopic page */}
         <Route path="/contactus" exact>
-          <Form details={forms[0]} settings={options.forms.newTopic} />
+          <Form settings={options.forms.newTopic} />
         </Route>
         {/* CreateThread page */}
         <Route path="/topic/:topicID/newthread" exact>
-          <Form details={forms[1]} settings={options.forms.newThread} />
+          <Form settings={options.forms.newThread} func={createNewThread} />
         </Route>
         <Switch />
       </BrowserRouter>

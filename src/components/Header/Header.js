@@ -2,20 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import './header.css';
 
-const Header = props => {
+const Header = ({settings}) => {
   const createLinks = () => {
-    const array = [
-      { name: "Home", icon: "home" },
-      { name: "Users", icon: "group" },
-      { name: "Contact Us", icon: "contact_support " },
-      { name: "Login", icon: "account_circle" },
-    ];
-    return array.map((link, index) => {
+    return settings.links.map(({ name, icon, link }, index) => {
       return (
         <li key={`nav${index}`}>
-          <Link to={`/${link.name.toLowerCase().replace(" ", "")}`}>
-            <span className="material-icons">{link.icon}</span>
-            {link.name}
+          <Link to={link}>
+            <span className="material-icons">{icon}</span>
+            {name}
           </Link>
         </li>
       );
@@ -27,7 +21,7 @@ const Header = props => {
       <div className="logo">
         <h2>
           <span className="material-icons">mode_comment</span>
-          {props.name}
+          {settings.logo}
         </h2>
       </div>
       <nav>

@@ -9,9 +9,9 @@ const TopicPage = ({topics, users}) => {
   const { pathname } = useLocation();
   const topic = topics.find(topic => topic.id === topicID);
   const moderators = () => {
-    return topic.moderators.map(mod => {
+    return topic.moderators.map((mod, index) => {
       const user = users.find(user => user.id === mod);
-      return <Link to={`/users/${user.id}`}>{user.username}</Link>;
+      return <Link key={`mod${index}`} to={`/users/${user.id}`}>{user.username}</Link>;
     })
   }
   if (topic && users) {
@@ -37,9 +37,6 @@ const TopicPage = ({topics, users}) => {
           </div>
         </div>
         <div className="container">
-          <TopicThreads users={users} topic={topic} />
-          <TopicThreads users={users} topic={topic} />
-          <TopicThreads users={users} topic={topic} />
           <TopicThreads users={users} topic={topic} />
         </div>
       </div>
