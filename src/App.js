@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import TopicDisplay from './components/TopicDisplay/TopicDisplay';
 import Form from './components/Form/Form';
 import TopicPage from "./components/TopicPage/TopicPage";
+import options from './options';
 import { Editor } from "@tinymce/tinymce-react";
 
 const App = () => {
@@ -138,14 +139,12 @@ const App = () => {
           render={(props) => <div>You not logged in</div>}
         />
         {/* CreateTopic page */}
-        <Route
-          path="/contactus"
-          exact
-          render={(props) => <Form details={forms[0]} />}
-        />
+        <Route path="/contactus" exact>
+          <Form details={forms[0]} settings={options.forms.newTopic} />
+        </Route>
         {/* CreateThread page */}
         <Route path="/topic/:topicID/newthread" exact>
-          <Form details={forms[1]} />
+          <Form details={forms[1]} settings={options.forms.newThread} />
         </Route>
         <Switch />
       </BrowserRouter>

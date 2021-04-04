@@ -14,7 +14,6 @@ const TopicPage = ({topics, users}) => {
       return <Link to={`/users/${user.id}`}>{user.username}</Link>;
     })
   }
-
   if (topic && users) {
     return (
       <div className="topicpage">

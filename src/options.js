@@ -8,11 +8,13 @@ const options = {
       buttonText: "Create",
       onClick: "function h-e-r-e",
       inputs: [
-        { name: "topic",
+        {
+          name: "topic",
           type: "text",
           title: "Topic",
           placeholder: "",
-          defaultValue: "" },
+          defaultValue: "",
+        },
         {
           name: "description",
           type: "text",
@@ -21,16 +23,43 @@ const options = {
           defaultValue: "",
         },
         {
-          name: "image",
-          title: "Image Location",
-          placeholder: "",
-          defaultValue: "",
-        },
-        {
           name: "admin",
+          type: "text",
           title: "Admin",
           placeholder: "",
           defaultValue: "",
+        },
+      ],
+      dropdowns: [],
+    },
+    newThread: {
+      header: "Create New Thread",
+      description: "Here you can create new thread for the forum",
+      buttonText: "Create",
+      onClick: "function h-e-r-e",
+      inputs: [
+        {
+          name: "title",
+          type: "text",
+          title: "Title",
+          placeholder: "",
+          defaultValue: "",
+        },
+      ],
+      dropdowns: [
+        {
+          name: "tag",
+          title: "Tag",
+          options: [
+            { value: "NoTag", title: "No Tag" },
+            { value: "Discussion", title: "Discussion" },
+            { value: "Help", title: "Help" },
+            { value: "Question", title: "Question" },
+            { value: "Guide", title: "Guide" },
+            { value: "Suggestion", title: "Suggestion" },
+            { value: "Request", title: "Request" },
+            { value: "Announcement", title: "Announcement" },
+          ],
         },
       ],
     },
@@ -40,33 +69,35 @@ const options = {
   },
 };
 
-{
-  id: "1",
-  createdAt: "",
-  username: "",
-  avatar: "",
-  email: "",
-  settings: {
-    hideEmail: false,
-    hidePosts: false,
-    hideThreads: false,
-  },
-}
+export default options;
 
-    {
-        "id": "1",
-        "title": "General",
-        "description": "Here you can talk about everything.",
-        "threads": [],
-        "moderators": []
-    },
+// {
+//   id: "1",
+//   createdAt: "",
+//   username: "",
+//   avatar: "",
+//   email: "",
+//   settings: {
+//     hideEmail: false,
+//     hidePosts: false,
+//     hideThreads: false,
+//   },
+// }
 
-[
-  {
-    type: "",
-    title: "",
-    content: "",
-    createdBy: "",
-    posts: [],
-  }
-]
+//     {
+//         "id": "1",
+//         "title": "General",
+//         "description": "Here you can talk about everything.",
+//         "threads": [],
+//         "moderators": []
+//     },
+
+// [
+//   {
+//     type: "",
+//     title: "",
+//     content: "",
+//     createdBy: "",
+//     posts: [],
+//   }
+// ]

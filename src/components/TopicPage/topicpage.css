@@ -25,6 +25,7 @@
   /* border: 1px solid red; */
   margin-left: auto;
   align-self: flex-start;
+  text-align: center;
 }
 .topic-header .controls {
   margin-top: 50px;
