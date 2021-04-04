@@ -1,117 +1,63 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './form.css';
 import Input from "../Input/Input";
 import Dropdown from '../Dropdown/Dropdown';
-import { Editor } from "@tinymce/tinymce-react";
-import parse from "html-react-parser";
+import RichTextEditor from "../RichTextEditor/RichTextEditor";
 
-const Form = props => {
-  console.log(props);
+const Form = ({ settings }) => {
   const [created, setCreated] = useState(false);
-  const [content, setContent] = useState('');
+  const [controlled, setControlled] = useState([]);
+  const itemsRef = useRef([]);
 
-  const createInputs = () => {
-    return props.details.inputs.map((input) => {
-      return <Input name={input.name} title={input.title} />;
-    });
+  useEffect(() => console.log(itemsRef),[itemsRef]);
+
+  const createRef = (el) => {
+     if (!itemsRef.current.includes(el)) {
+       itemsRef.current.push(el);
+     }
   };
 
   const createFormElements = () => {
     const formElements = [];
+    settings.elements.forEach((element) => {
+      switch (element.elementType) {
+        case "input":
+          const newInput = <Input settings={element} createRef={createRef} />;
+          formElements.push(newInput);
+          break;
+        case "dropdown":
+          const newDropdown = (
+            <Dropdown settings={element} createRef={createRef} />
+          );
+          formElements.push(newDropdown);
+          break;
+        case "richText":
+          const newRichText = <RichTextEditor createRef={createRef} />;
+          formElements.push(newRichText);
+          break;
 
-    props.settings.dropdowns.forEach(dropdown => {
-      const newDropdown = (<Dropdown settings={dropdown} />)
-      formElements.push(newDropdown);
-    })
-
-    props.settings.inputs.forEach(input => {
-      const newInput = (<Input settings={input} />);
-      formElements.push(newInput);
+        default:
+          break;
+      }
     });
 
     return formElements;
-    // return props.settings.inputs.map((input) => {
-    //   return <Input name={input.name} title={input.title} />;
-    // });
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     setCreated(true);
-    // props.details.onClick(e);
-    console.log(props);
+    // details.onClick(e);
   };
 
   const form = () => {
     return (
       <React.Fragment>
-        <h1>{props.details.header}</h1>
+        <h1>{settings.header}</h1>
+        <p>{settings.description}</p>
         <div className="divider"></div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-          autem deleniti corrupti ipsam odit impedit possimus quo placeat
-          quaerat nisi.
-        </p>
-        <div className="divider"></div>
-
-        {/* {createInputs()} */}
         {createFormElements()}
-        <Editor
-          apiKey="2viqoomhb51lmkju04axbr2u0tvkmoc0g51wpfiuhbxs9vi3"
-          cloudChannel="5-stable"
-          id="uuid"
-          outputFormat="html"
-          init={{
-            branding: false,
-            elementpath: false,
-            statusbar: false,
-            menubar: false,
-            default_link_target: "_blank",
-            toolbar: [
-              {
-                name: "history",
-                items: ["undo", "redo"],
-              },
-              {
-                name: "styles",
-                items: ["styleselect"],
-              },
-              {
-                name: "colors",
-                items: ["forecolor", "backcolor"],
-              },
-              {
-                name: "formatting",
-                items: ["bold", "italic", "link"],
-              },
-              {
-                name: "alignment",
-                items: [
-                  "alignleft",
-                  "aligncenter",
-                  "alignright",
-                  "alignjustify",
-                ],
-              },
-              {
-                name: "indentation",
-                items: ["outdent", "indent"],
-              },
-              {
-                name: "fun",
-                items: ["emoticons", "image"],
-              },
-            ],
-          }}
-          onEditorChange={(value) => {
-            setContent(value);
-            console.log(value);
-          }}
-          plugins="code emoticons link image"
-          value={content}
-        />
-        {parse(content)}
-        <button onClick={handleClick}>{props.details.buttonText}</button>
+        <button onClick={handleClick}>{settings.buttonText}</button>
       </React.Fragment>
     );
   };
@@ -122,6 +68,6 @@ const Form = props => {
       {created && <h3>Done.</h3>}
     </div>
   );
-}
+};
 
 export default Form;

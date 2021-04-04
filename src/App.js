@@ -107,23 +107,6 @@ const App = () => {
       <BrowserRouter>
         <Switch />
         <Header name="myForum" />
-        <div>
-          {/* <Editor
-            apiKey="2viqoomhb51lmkju04axbr2u0tvkmoc0g51wpfiuhbxs9vi3"
-            cloudChannel="5-stable"
-            disabled={false}
-            id="uuid"
-            init={{}}
-            initialValue=""
-            inline={false}
-            onEditorChange={console.log("howdy")}
-            plugins=""
-            tagName="div"
-            textareaName=""
-            toolbar=""
-            value=""
-          /> */}
-        </div>
         {/* Topic at homepage */}
         <Route path="/home" exact>
           <TopicDisplay topics={topics} />

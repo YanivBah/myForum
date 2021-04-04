@@ -7,8 +7,9 @@ const options = {
       description: "Here you can create new topic for the forum",
       buttonText: "Create",
       onClick: "function h-e-r-e",
-      inputs: [
+      elements: [
         {
+          elementType: "input",
           name: "topic",
           type: "text",
           title: "Topic",
@@ -16,6 +17,7 @@ const options = {
           defaultValue: "",
         },
         {
+          elementType: "input",
           name: "description",
           type: "text",
           title: "Description",
@@ -23,6 +25,7 @@ const options = {
           defaultValue: "",
         },
         {
+          elementType: "input",
           name: "admin",
           type: "text",
           title: "Admin",
@@ -30,24 +33,15 @@ const options = {
           defaultValue: "",
         },
       ],
-      dropdowns: [],
     },
     newThread: {
       header: "Create New Thread",
       description: "Here you can create new thread for the forum",
       buttonText: "Create",
       onClick: "function h-e-r-e",
-      inputs: [
+      elements: [
         {
-          name: "title",
-          type: "text",
-          title: "Title",
-          placeholder: "",
-          defaultValue: "",
-        },
-      ],
-      dropdowns: [
-        {
+          elementType: "dropdown",
           name: "tag",
           title: "Tag",
           options: [
@@ -60,6 +54,17 @@ const options = {
             { value: "Request", title: "Request" },
             { value: "Announcement", title: "Announcement" },
           ],
+        },
+        {
+          elementType: "input",
+          name: "title",
+          type: "text",
+          title: "Title",
+          placeholder: "",
+          defaultValue: "",
+        },
+        {
+          elementType: "richText"
         },
       ],
     },
