@@ -1,7 +1,6 @@
-// import axios from 'axios';
 import React, { useState, useEffect, Component } from "react";
 import api from './api';
-import { BrowserRouter, Route, Link, Switch, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 import './App.css';
 import Header from './components/Header/Header';
 import TopicDisplay from './components/TopicDisplay/TopicDisplay';
@@ -9,18 +8,18 @@ import Form from './components/Form/Form';
 import TopicPage from "./components/TopicPage/TopicPage";
 import ThreadPage from "./components/ThreadPage/ThreadPage";
 import options from './options';
-import { Editor } from "@tinymce/tinymce-react";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [topics, setTopics] = useState([]);
   const [users, setUsers] = useState([]);
+  const [redirect, setRedirect] = useState(null);
 
   const fetchData = async () => {
     const users = await api.get("users");
     setUsers(users.data);
     const data = await api.get("topics");
-     setTopics(data.data);
+    setTopics(data.data);
   };
 
   const createNewTopic = (e) => {
@@ -53,9 +52,23 @@ const App = () => {
     };
     topic.threads.unshift(thread);
     api.put(`topics/${topicID}`, topic);
-    console.log('Created new thread');
-    fetchData();
+    await fetchData();
+    setRedirect(`/topic/${topicID}/thread/${id}`);
   };
+
+  const deleteThread = async (topicID,threadID) => {
+    const { data } = await api.get("topics");
+    const topic = data.find(topic => topic.id === topicID);
+    const threadIndex = topic.threads.findIndex(thread => thread.id === threadID);
+    topic.threads.splice(threadIndex,1);
+    await api.put(`/topics/${topicID}`, topic);
+    fetchData();
+  }
+  const editThread = async (topicID,threadID) => {
+    const { data } = await api.get("topics");
+    const topic = data.find((topic) => topic.id === topicID);
+    
+  }
   
   const registerAccount = () => {
     const user = {
@@ -82,6 +95,7 @@ const App = () => {
     <React.Fragment>
       <BrowserRouter>
         <Switch />
+        {redirect && <Redirect to={redirect} />}
         <Header name="myForum" settings={options.header} />
         {/* Topic at homepage */}
         <Route path="/" exact>
@@ -93,7 +107,7 @@ const App = () => {
         </Route>
         {/* Thread Page */}
         <Route path="/topic/:topicID/thread/:threadID" exact>
-          <ThreadPage topics={topics} users={users} />
+          <ThreadPage topics={topics} users={users} deleteFunc={deleteThread} />
         </Route>
         {/* Login page */}
         <Route path="/login" exact>

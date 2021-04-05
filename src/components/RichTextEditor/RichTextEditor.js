@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Editor } from "@tinymce/tinymce-react";
 import parse from "html-react-parser";
 
-const RichTextEditor = ({createRef}) => {
+const RichTextEditor = ({createRef, value = ''}) => {
   const [content, setContent] = useState("");
 
   return (
@@ -15,9 +15,16 @@ const RichTextEditor = ({createRef}) => {
       init={{
         branding: false,
         elementpath: false,
-        statusbar: false,
+        statusbar: true,
         menubar: false,
+        resize: true,
         default_link_target: "_blank",
+        initValue: value,
+        setup: function(editor) {
+          editor.on('init', function(e) {
+            editor.setContent(value)
+          });
+        },
         toolbar: [
           {
             name: "history",
@@ -51,7 +58,6 @@ const RichTextEditor = ({createRef}) => {
       }}
       onEditorChange={(value) => {
         setContent(value);
-        console.log(value);
       }}
       plugins="code emoticons link image"
       value={content}

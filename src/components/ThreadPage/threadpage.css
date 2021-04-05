@@ -17,10 +17,11 @@
   box-shadow: 0 2px 8px 0 rgb(42 51 83 / 18%), 0 0 8px rgb(0 0 0 / 6%);
   padding: 0;
   border-radius: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.3);
 }
 .thread .user-details {
   background: rgba(128, 128, 128, 0.1);
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
   border-radius: 5px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -54,4 +55,33 @@
 
 .thread .post {
   padding: 2rem;
+}
+
+.thread .controls {
+  display: flex;
+  padding: 1rem 2rem;
+  justify-content: flex-end;
+}
+
+.thread .controls button {
+  cursor: pointer;
+  display: flex;
+  border-radius: 4px;
+  margin: 0 5px;
+  border: 1px solid #dee2e6;
+  background: var(--tertiary-color);
+  color: #fff;
+  font-size: 18px;
+  transition: 0.3s;
+}
+.thread .controls button:hover {
+  opacity: 0.7;
+}
+.thread .controls button:focus {
+  outline: none;
+  opacity: 0.8;
+  border-color: blue;
+}
+.thread .controls button .material-icons {
+  font-size: 25px;
 }
