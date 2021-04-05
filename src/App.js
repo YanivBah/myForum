@@ -64,10 +64,34 @@ const App = () => {
     await api.put(`/topics/${topicID}`, topic);
     fetchData();
   }
-  const editThread = async (topicID,threadID) => {
+
+  const editThread = async (topicID,threadID,content) => {
     const { data } = await api.get("topics");
     const topic = data.find((topic) => topic.id === topicID);
-    
+    const index = topic.threads.findIndex(thread => thread.id === threadID);
+    topic.threads[index].content = content;
+    await api.put(`/topics/${topicID}`, topic);
+    fetchData();
+  }
+
+  const commentThread = async (topicID, threadID, content) => {
+     const { data } = await api.get("topics");
+     const topic = data.find((topic) => topic.id === topicID);
+     const index = topic.threads.findIndex(
+       (thread) => thread.id === threadID
+     );
+     console.log(topic);
+     console.log(topic.threads[index].posts.length + 1);
+     const post = {
+       content: content,
+       createdAt: new Date(),
+       createdBy: "1",
+       editedAt: null,
+       id: topic.threads[index].posts.length + 1,
+     };
+    topic.threads[index].posts.push(post);
+     await api.put(`/topics/${topicID}`, topic);
+    fetchData();
   }
   
   const registerAccount = () => {
@@ -107,7 +131,13 @@ const App = () => {
         </Route>
         {/* Thread Page */}
         <Route path="/topic/:topicID/thread/:threadID" exact>
-          <ThreadPage topics={topics} users={users} deleteFunc={deleteThread} />
+          <ThreadPage
+            topics={topics}
+            users={users}
+            deleteFunc={deleteThread}
+            editFunc={editThread}
+            commentFunc={commentThread}
+          />
         </Route>
         {/* Login page */}
         <Route path="/login" exact>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import './form.css';
 import Input from "../Input/Input";
@@ -11,6 +11,8 @@ const Form = ({ settings, func }) => {
   const [controlled, setControlled] = useState([]);
   const itemsRef = useRef([]);
   const params = useParams();
+  const history = useHistory();
+  console.log(history);
 
   useEffect(() => console.log(itemsRef), [itemsRef]);
 
@@ -35,7 +37,7 @@ const Form = ({ settings, func }) => {
           formElements.push(newDropdown);
           break;
         case "richText":
-          const newRichText = <RichTextEditor createRef={createRef} />;
+          const newRichText = <RichTextEditor createRef={createRef} height="50vh" />;
           formElements.push(newRichText);
           break;
 

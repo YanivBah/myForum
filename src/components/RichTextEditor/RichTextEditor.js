@@ -2,17 +2,15 @@ import React, {useState} from 'react';
 import { Editor } from "@tinymce/tinymce-react";
 import parse from "html-react-parser";
 
-const RichTextEditor = ({createRef, value = ''}) => {
+const RichTextEditor = ({createRef, value = '', height = "300"}) => {
   const [content, setContent] = useState("");
 
   return (
     <Editor
       ref={createRef}
-      apiKey="2viqoomhb51lmkju04axbr2u0tvkmoc0g51wpfiuhbxs9vi3"
-      cloudChannel="5-stable"
-      id="uuid"
       outputFormat="html"
       init={{
+        selector: ".texteditor",
         branding: false,
         elementpath: false,
         statusbar: true,
@@ -20,9 +18,10 @@ const RichTextEditor = ({createRef, value = ''}) => {
         resize: true,
         default_link_target: "_blank",
         initValue: value,
-        setup: function(editor) {
-          editor.on('init', function(e) {
-            editor.setContent(value)
+        height: height,
+        setup: function (editor) {
+          editor.on("init", function (e) {
+            editor.setContent(value);
           });
         },
         toolbar: [
@@ -44,7 +43,14 @@ const RichTextEditor = ({createRef, value = ''}) => {
           },
           {
             name: "alignment",
-            items: ["alignleft", "aligncenter", "alignright", "alignjustify"],
+            items: [
+              "alignleft",
+              "aligncenter",
+              "alignright",
+              "alignjustify",
+              "ltr",
+              "rtl",
+            ],
           },
           {
             name: "indentation",
@@ -52,14 +58,18 @@ const RichTextEditor = ({createRef, value = ''}) => {
           },
           {
             name: "fun",
-            items: ["emoticons", "image"],
+            items: ["emoticons", "image", "charmap"],
+          },
+          {
+            name: "lists",
+            items: ["numlist", "bullist", "media"],
           },
         ],
       }}
       onEditorChange={(value) => {
         setContent(value);
       }}
-      plugins="code emoticons link image"
+      plugins="emoticons link image bbcode lists charmap directionality lists media"
       value={content}
     />
   );

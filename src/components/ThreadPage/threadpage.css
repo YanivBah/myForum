@@ -63,7 +63,8 @@
   justify-content: flex-end;
 }
 
-.thread .controls button {
+.thread .controls button,
+.comment-editor button {
   cursor: pointer;
   display: flex;
   border-radius: 4px;
@@ -74,14 +75,34 @@
   font-size: 18px;
   transition: 0.3s;
 }
-.thread .controls button:hover {
+.thread .controls button:hover,
+.comment-editor button:hover {
   opacity: 0.7;
 }
-.thread .controls button:focus {
+.thread .controls button:focus,
+.comment-editor button:focus {
   outline: none;
   opacity: 0.8;
   border-color: blue;
 }
 .thread .controls button .material-icons {
   font-size: 25px;
+}
+
+.comment-editor {
+  max-width: 144rem;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.comment-editor h3 {
+  margin-bottom: 10px;
+  border-bottom: 2.5px solid rgb(95, 95, 95);
+  padding: 0 20px;
+  display: inline-block;
+}
+.comment-editor button {
+  display: inline-block;
+  margin: 15px 0;
+  padding: 1rem 3rem;
 }

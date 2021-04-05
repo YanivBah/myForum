@@ -13,7 +13,7 @@ const TopicThreads = ({topic,users}) => {
         <div className="avatar"></div>
         <div className="info">
           <div className="title">
-            <span className="tag">{thread.tag}</span>
+            <span className="tag">{thread.tag === "NoTag" ? "" : thread.tag}</span>
             <Link to={`/topic/${topicID}/thread/${thread.id}`}>
               {thread.title}
             </Link>

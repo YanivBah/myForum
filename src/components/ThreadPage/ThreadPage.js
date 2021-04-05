@@ -5,23 +5,37 @@ import parse from "html-react-parser";
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 import "./threadpage.css";
 
-const ThreadPage = ({ topics, users, deleteFunc }) => {
+const ThreadPage = ({ topics, users, deleteFunc, editFunc, commentFunc }) => {
   const { topicID, threadID } = useParams();
   const [redirect, setRedirect] = useState(null);
-  const [ isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const commentEditorRef = useRef(null);
   const editorRef = useRef(null);
 
-  const comments = () => {};
+  const comments = (thread) => {
+    return thread.posts.map(post => {
+      return (<div>{parse(post.content)}</div>)
+    })
+  };
 
   const handleDelete = () => {
-    deleteFunc(topicID,threadID);
+    deleteFunc(topicID, threadID);
     setRedirect(`/topic/${topicID}`);
   };
 
   const handleEdit = () => {
-    console.log(editorRef.current.currentContent);
+    // console.log(editorRef.current.currentContent);
     // e[2].currentContent;
-  }
+    editFunc(topicID, threadID, editorRef.current.currentContent);
+    setIsEdit(false);
+  };
+
+  const handleComment = () => {
+    commentFunc(topicID, threadID, commentEditorRef.current.currentContent);
+    console.log(commentEditorRef);
+    // commentEditorRef.props.value = 'test';
+    commentEditorRef.current.editor.resetContent();
+  };
 
   const controls = () => {
     if (!isEdit) {
@@ -37,7 +51,8 @@ const ThreadPage = ({ topics, users, deleteFunc }) => {
           </button>
         </div>
       );
-    } return (
+    }
+    return (
       <div className="controls">
         <button onClick={handleEdit}>
           <span className="material-icons">save</span>
@@ -69,7 +84,9 @@ const ThreadPage = ({ topics, users, deleteFunc }) => {
       return (
         <div className="thread">
           <h1 className="title">
-            <span className="tag">{thread.tag}</span>
+            {thread.tag === "NoTag" ? null : (
+              <span className="tag">{thread.tag}</span>
+            )}
             {thread.title}
           </h1>
           <div className="container">
@@ -83,15 +100,28 @@ const ThreadPage = ({ topics, users, deleteFunc }) => {
               </div>
             </div>
             <div className="post">
-              {!isEdit ? parse(thread.content)
-              : <RichTextEditor createRef={editorRef} value={thread.content}/>}
+              {!isEdit ? (
+                parse(thread.content)
+              ) : (
+                <RichTextEditor
+                  createRef={editorRef}
+                  value={thread.content}
+                  height="500px"
+                />
+              )}
             </div>
             {controls()}
+            {comments(thread)}
+          </div>
+          <div className="comment-editor">
+            <h3>Add your comment</h3>
+            <RichTextEditor createRef={commentEditorRef} height="200px" />
+            <button onClick={handleComment}>Post</button>
           </div>
         </div>
       );
     }
-    return <Redirect to={redirect}/>
+    return <Redirect to={redirect} />;
   }
 
   return null;
