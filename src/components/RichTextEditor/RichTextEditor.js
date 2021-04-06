@@ -69,7 +69,7 @@ const RichTextEditor = ({createRef, value = '', height = "300"}) => {
       onEditorChange={(value) => {
         setContent(value);
       }}
-      plugins="emoticons link image bbcode lists charmap directionality lists media"
+      plugins="emoticons link image lists charmap directionality lists media"
       value={content}
     />
   );

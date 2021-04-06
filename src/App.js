@@ -3,11 +3,14 @@ import api from './api';
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 import './App.css';
 import Header from './components/Header/Header';
-import TopicDisplay from './components/TopicDisplay/TopicDisplay';
+// import TopicDisplay from './components/TopicDisplay/TopicDisplay';
 import Form from './components/Form/Form';
-import TopicPage from "./components/TopicPage/TopicPage";
+// import TopicPage from "./components/TopicPage/TopicPage";
 import ThreadPage from "./components/ThreadPage/ThreadPage";
 import options from './options';
+
+import Home from './pages/Home';
+import Topic from './pages/Topic';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -123,11 +126,11 @@ const App = () => {
         <Header name="myForum" settings={options.header} />
         {/* Topic at homepage */}
         <Route path="/" exact>
-          <TopicDisplay topics={topics} />
+          <Home topics={topics}/>
         </Route>
         {/* Topic Page */}
         <Route path="/topic/:topicID" exact>
-          <TopicPage topics={topics} users={users} />
+          <Topic topics={topics} users={users} />
         </Route>
         {/* Thread Page */}
         <Route path="/topic/:topicID/thread/:threadID" exact>
