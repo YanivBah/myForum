@@ -1,22 +1,25 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import api from './api';
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 import './App.css';
 import Header from './components/Header/Header';
-// import TopicDisplay from './components/TopicDisplay/TopicDisplay';
 import Form from './components/Form/Form';
-// import TopicPage from "./components/TopicPage/TopicPage";
-import ThreadPage from "./components/ThreadPage/ThreadPage";
 import options from './options';
 
 import Home from './pages/Home';
 import Topic from './pages/Topic';
+import Thread from './pages/Thread';
+
+import { newThread } from "./utilites/crudFuncs";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [topics, setTopics] = useState([]);
   const [users, setUsers] = useState([]);
   const [redirect, setRedirect] = useState(null);
+
+
+  useEffect(() => console.log("redirect--", redirect), [redirect]);
 
   const fetchData = async () => {
     const users = await api.get("users");
@@ -38,65 +41,6 @@ const App = () => {
     api.post("topics", newTopic);
   };
 
-  const createNewThread = async (e,{topicID}) => {
-    const {data} = await api.get("topics");
-    const topic = data.find(topic => topic.id === topicID);
-    const id =
-      topic.threads.length === 0 ? "1" : `${parseInt(topic.threads[0].id) + 1}`;
-    const thread = {
-      tag: e[0].value,
-      title: e[1].value,
-      content: e[2].currentContent,
-      createdAt: new Date(),
-      createdBy: "1",
-      editedAt: null,
-      id: id,
-      posts: [],
-    };
-    topic.threads.unshift(thread);
-    api.put(`topics/${topicID}`, topic);
-    await fetchData();
-    setRedirect(`/topic/${topicID}/thread/${id}`);
-  };
-
-  const deleteThread = async (topicID,threadID) => {
-    const { data } = await api.get("topics");
-    const topic = data.find(topic => topic.id === topicID);
-    const threadIndex = topic.threads.findIndex(thread => thread.id === threadID);
-    topic.threads.splice(threadIndex,1);
-    await api.put(`/topics/${topicID}`, topic);
-    fetchData();
-  }
-
-  const editThread = async (topicID,threadID,content) => {
-    const { data } = await api.get("topics");
-    const topic = data.find((topic) => topic.id === topicID);
-    const index = topic.threads.findIndex(thread => thread.id === threadID);
-    topic.threads[index].content = content;
-    await api.put(`/topics/${topicID}`, topic);
-    fetchData();
-  }
-
-  const commentThread = async (topicID, threadID, content) => {
-     const { data } = await api.get("topics");
-     const topic = data.find((topic) => topic.id === topicID);
-     const index = topic.threads.findIndex(
-       (thread) => thread.id === threadID
-     );
-     console.log(topic);
-     console.log(topic.threads[index].posts.length + 1);
-     const post = {
-       content: content,
-       createdAt: new Date(),
-       createdBy: "1",
-       editedAt: null,
-       id: topic.threads[index].posts.length + 1,
-     };
-    topic.threads[index].posts.push(post);
-     await api.put(`/topics/${topicID}`, topic);
-    fetchData();
-  }
-  
   const registerAccount = () => {
     const user = {
       username: "Yaniv",
@@ -124,35 +68,44 @@ const App = () => {
         <Switch />
         {redirect && <Redirect to={redirect} />}
         <Header name="myForum" settings={options.header} />
-        {/* Topic at homepage */}
+
+        {/* Homepage */}
         <Route path="/" exact>
-          <Home topics={topics}/>
+          <Home topics={topics} />
         </Route>
-        {/* Topic Page */}
+
+        {/* Topic */}
         <Route path="/topic/:topicID" exact>
           <Topic topics={topics} users={users} />
         </Route>
-        {/* Thread Page */}
+
+        {/* Thread */}
         <Route path="/topic/:topicID/thread/:threadID" exact>
-          <ThreadPage
+          <Thread
             topics={topics}
             users={users}
-            deleteFunc={deleteThread}
-            editFunc={editThread}
-            commentFunc={commentThread}
+            update={fetchData}
           />
         </Route>
-        {/* Login page */}
+
+        {/* Login */}
         <Route path="/login" exact>
           <div>You not logged in</div>
         </Route>
-        {/* CreateTopic page */}
+
+        {/* CreateTopic */}
         <Route path="/contactus" exact>
           <Form settings={options.forms.newTopic} />
         </Route>
-        {/* CreateThread page */}
+
+        {/* CreateThread */}
         <Route path="/topic/:topicID/newthread" exact>
-          <Form settings={options.forms.newThread} func={createNewThread} />
+          <Form
+            settings={options.forms.newThread}
+            func={newThread}
+            update={fetchData}
+            setRedirect={setRedirect}
+          />
         </Route>
         <Switch />
       </BrowserRouter>

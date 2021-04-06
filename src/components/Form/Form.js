@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory} from 'react-router-dom';
 
 import './form.css';
 import Input from "../Input/Input";
 import Dropdown from '../Dropdown/Dropdown';
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 
-const Form = ({ settings, func }) => {
+const Form = ({ settings, func, update, setRedirect }) => {
   const [created, setCreated] = useState(false);
   const [controlled, setControlled] = useState([]);
   const itemsRef = useRef([]);
   const params = useParams();
   const history = useHistory();
-  console.log(history);
 
   useEffect(() => console.log(itemsRef), [itemsRef]);
 
@@ -37,7 +36,9 @@ const Form = ({ settings, func }) => {
           formElements.push(newDropdown);
           break;
         case "richText":
-          const newRichText = <RichTextEditor createRef={createRef} height="50vh" />;
+          const newRichText = (
+            <RichTextEditor createRef={createRef} height="50vh" />
+          );
           formElements.push(newRichText);
           break;
 
@@ -49,12 +50,12 @@ const Form = ({ settings, func }) => {
     return formElements;
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    func(itemsRef.current,params);
+    const redirect = await func(itemsRef.current, params);
+    await update();
     setCreated(true);
-
-    // details.onClick(e);
+    setRedirect(redirect);
   };
 
   const form = () => {

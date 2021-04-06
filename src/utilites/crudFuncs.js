@@ -33,6 +33,7 @@ export const newThread = async (refs,{topicID}) => {
   };
   currTopic.threads.unshift(thread);
   updateTopic(currTopic);
+  return `/topic/${topicID}/thread/${id}`;
 }
 
 export const deleteThread = async (topicID, threadID) => {
@@ -56,7 +57,33 @@ export const editThread = async (topicID, threadID, content) => {
 };
 
 /* Comments Functions */
-export const commentThread = async (topicID, threadID, content) => {
+export const addComment = async (topicID, threadID, content) => {
   const data = await fetchTopics();
   const currTopic = data.find((topic) => topic.id === topicID);
+  const index = currTopic.threads.findIndex((thread) => thread.id === threadID);
+  const post = {
+    content: content,
+    createdAt: new Date(),
+    createdBy: "1",
+    editedAt: null,
+    id: currTopic.threads[index].posts.length + 1,
+  };
+  currTopic.threads[index].posts.push(post);
+  updateTopic(currTopic);
+};
+
+export const deleteComment = async(index, topicID, threadID) => {
+  const data = await fetchTopics();
+  const currTopic = data.find((topic) => topic.id === topicID);
+  const threadIndex = currTopic.threads.findIndex(thread => thread.id === threadID);
+  currTopic.threads[threadIndex].posts.splice(index,1);
+  updateTopic(currTopic);
+};
+
+export const editComment = async(index, topicID, threadID, content) => {
+  const data = await fetchTopics();
+  const currTopic = data.find((topic) => topic.id === topicID);
+  const threadIndex = currTopic.threads.findIndex(thread => thread.id === threadID);
+  currTopic.threads[threadIndex].posts[index].content = content;
+  updateTopic(currTopic);
 };
