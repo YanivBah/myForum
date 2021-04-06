@@ -14,7 +14,7 @@ export const functionName = (params) => {
 }
 
 /* Threads Functions */
-export const newThread = async (refs,{topicID}) => {
+export const newThread = async (refs,{topicID},user) => {
   const data = await fetchTopics();
   const currTopic = data.find(topic => topic.id === topicID);
   const id =
@@ -26,7 +26,7 @@ export const newThread = async (refs,{topicID}) => {
     title: refs[1].value,
     content: refs[2].currentContent,
     createdAt: new Date(),
-    createdBy: "1",
+    createdBy: user.id,
     editedAt: null,
     id: id,
     posts: [],

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import {Login, Logout} from '../Login/Login';
 import './header.css';
 
-const Header = ({settings}) => {
+const Header = ({ settings, loggedIn, SignIn }) => {
   const createLinks = () => {
     return settings.links.map(({ name, icon, link }, index) => {
       return (
@@ -25,10 +26,13 @@ const Header = ({settings}) => {
         </h2>
       </div>
       <nav>
-        <ul>{createLinks()}</ul>
+        <ul>
+          {createLinks()}
+          <li>{loggedIn === null ? <Login SignIn={SignIn} /> : <Logout />}</li>
+        </ul>
       </nav>
     </header>
   );
-}
+};
 
 export default Header;

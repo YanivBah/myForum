@@ -13,13 +13,10 @@ import Thread from './pages/Thread';
 import { newThread } from "./utilites/crudFuncs";
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
   const [topics, setTopics] = useState([]);
   const [users, setUsers] = useState([]);
   const [redirect, setRedirect] = useState(null);
-
-
-  useEffect(() => console.log("redirect--", redirect), [redirect]);
 
   const fetchData = async () => {
     const users = await api.get("users");
@@ -27,6 +24,28 @@ const App = () => {
     const data = await api.get("topics");
     setTopics(data.data);
   };
+
+  const SignIn = async (profile) => {
+    const users = await api.get("users");
+    const user = users.data.find(user => user.googleId === profile.googleId);
+    user ? setLoggedIn(user) : register(profile);
+  }
+
+  const register = (profile) => {
+    const user = {
+      username: `${profile.name.replace(" ", "")}`,
+      avatar: profile.imageUrl,
+      email: profile.email,
+      moderator: [],
+      settings: {
+        hideEmail: false,
+        hidePosts: false,
+        hideThreads: false,
+      },
+      googleId: profile.googleId,
+    };
+    api.post("users", user);
+  }
 
   const createNewTopic = (e) => {
     const topic = e.target.parentElement.children[1].children[1].value;
@@ -67,7 +86,12 @@ const App = () => {
       <BrowserRouter>
         <Switch />
         {redirect && <Redirect to={redirect} />}
-        <Header name="myForum" settings={options.header} />
+        <Header
+          name="myForum"
+          settings={options.header}
+          loggedIn={loggedIn}
+          SignIn={SignIn}
+        />
 
         {/* Homepage */}
         <Route path="/" exact>
@@ -76,7 +100,7 @@ const App = () => {
 
         {/* Topic */}
         <Route path="/topic/:topicID" exact>
-          <Topic topics={topics} users={users} />
+          <Topic topics={topics} users={users} loggedIn={loggedIn} />
         </Route>
 
         {/* Thread */}
@@ -85,6 +109,7 @@ const App = () => {
             topics={topics}
             users={users}
             update={fetchData}
+            loggedIn={loggedIn}
           />
         </Route>
 
@@ -105,6 +130,7 @@ const App = () => {
             func={newThread}
             update={fetchData}
             setRedirect={setRedirect}
+            loggedIn={loggedIn}
           />
         </Route>
         <Switch />

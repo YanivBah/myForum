@@ -8,17 +8,17 @@ import { deleteThread, editThread, deleteComment, editComment} from "../../utili
 
 moment.updateLocale("en", {
   calendar: {
-     lastDay: "[Yesterday at] H:mm",
-     sameDay: "[Today at] H:mm",
-     nextDay: "[Tomorrow at] H:mm",
-     lastWeek: "[last] dddd [at] H:mm",
-     nextWeek: "dddd [at] H:mm",
-      sameElse: "DD/MM/YYYY - H:mm",
+     lastDay: "[Yesterday at] HH:mm",
+     sameDay: "[Today at] HH:mm",
+     nextDay: "[Tomorrow at] HH:mm",
+     lastWeek: "[last] dddd [at] HH:mm",
+     nextWeek: "dddd [at] HH:mm",
+      sameElse: "DD/MM/YYYY - HH:mm",
   },
 });
 
 
-const Comment = ({ topicID, threadID, post, users, setRedirect ,index ,type ,update }) => {
+const Comment = ({ topicID, threadID, post, users, setRedirect ,index ,type ,update,loggedIn }) => {
   const [isEdit, setIsEdit] = useState(false);
   const user = users.find((user) => user.id === post.createdBy);
   const editorRef = useRef(null);
@@ -88,12 +88,16 @@ const Comment = ({ topicID, threadID, post, users, setRedirect ,index ,type ,upd
           />
         )}
       </div>
-      <CommentControl
-        isEdit={isEdit}
-        setIsEdit={setIsEdit}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-      />
+      {loggedIn !== null && (
+        <CommentControl
+          isEdit={isEdit}
+          setIsEdit={setIsEdit}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          loggedIn={loggedIn}
+          user={user}
+        />
+      )}
     </div>
   );
 };

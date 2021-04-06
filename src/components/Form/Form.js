@@ -6,7 +6,8 @@ import Input from "../Input/Input";
 import Dropdown from '../Dropdown/Dropdown';
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 
-const Form = ({ settings, func, update, setRedirect }) => {
+const Form = ({ settings, func, update, setRedirect, loggedIn }) => {
+  loggedIn === null && setRedirect('/');
   const [created, setCreated] = useState(false);
   const [controlled, setControlled] = useState([]);
   const itemsRef = useRef([]);
@@ -52,7 +53,7 @@ const Form = ({ settings, func, update, setRedirect }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const redirect = await func(itemsRef.current, params);
+    const redirect = await func(itemsRef.current, params, loggedIn);
     await update();
     setCreated(true);
     setRedirect(redirect);
@@ -70,12 +71,12 @@ const Form = ({ settings, func, update, setRedirect }) => {
     );
   };
 
-  return (
+  return loggedIn !== null ? (
     <div className="container form">
       {!created && form()}
       {created && <h3>Done.</h3>}
     </div>
-  );
+  ) : null;
 };
 
 export default Form;

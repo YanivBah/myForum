@@ -5,7 +5,7 @@ import Comment from "../components/Comment/Comment";
 import { addComment } from "../utilites/crudFuncs";
 import './css/thread.css';
 
-const Thread = ({ topics, users, update }) => {
+const Thread = ({ topics, users, update, loggedIn }) => {
   const { topicID, threadID } = useParams();
   const [redirect, setRedirect] = useState(null);
   const commentEditorRef = useRef(null);
@@ -41,6 +41,7 @@ const Thread = ({ topics, users, update }) => {
             setRedirect={setRedirect}
             type="thread"
             update={update}
+            loggedIn={loggedIn}
           />
           {thread.posts.map((post, index) => (
             <Comment
@@ -52,19 +53,23 @@ const Thread = ({ topics, users, update }) => {
               setRedirect={setRedirect}
               type="comment"
               update={update}
+              loggedIn={loggedIn}
             />
           ))}
         </div>
-        <div className="comment-editor">
-          <h3>Add your comment</h3>
-          <RichTextEditor createRef={commentEditorRef} height="200px" />
-          <button onClick={handleComment}>Post</button>
-        </div>
+        {loggedIn !== null && (
+          <div className="comment-editor">
+            <h3>Add your comment</h3>
+            <RichTextEditor createRef={commentEditorRef} height="200px" />
+            <button onClick={handleComment}>Post</button>
+          </div>
+        )}
       </div>
     ) : (
       <Redirect to={redirect} />
     );
-  } return null;
+  }
+  return null;
 };
 
 export default Thread;

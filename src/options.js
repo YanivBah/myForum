@@ -5,7 +5,6 @@ const options = {
       { name: "Home", icon: "home", link: "/" },
       { name: "Users", icon: "group", link: "/users" },
       { name: "Contact Us", icon: "contact_support", link: "/contactus" },
-      { name: "Login", icon: "account_circle", link: "/login" },
     ],
 },
 
