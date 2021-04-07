@@ -59,23 +59,6 @@ const App = () => {
     };
     api.post("topics", newTopic);
   };
-
-  const registerAccount = () => {
-    const user = {
-      username: "Yaniv",
-      avatar: "1",
-      email: "ybahalker@gmail.com",
-      password: "1234",
-      moderator: ["1","2","3","4"],
-      settings: {
-        hideEmail: true,
-        hidePosts: true,
-        hideThreads: true,
-      },
-    };
-    api.post("users", user);
-    console.log('registered');
-  };
   
   useEffect(() => {
     fetchData();
@@ -95,7 +78,7 @@ const App = () => {
 
         {/* Homepage */}
         <Route path="/" exact>
-          <Home topics={topics} />
+          <Home topics={topics} users={users} />
         </Route>
 
         {/* Topic */}

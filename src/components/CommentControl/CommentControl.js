@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { useParams } from 'react-router-dom'
+
 
 const CommentControl = ({ isEdit, setIsEdit, handleDelete, handleEdit,loggedIn,user }) => {
-  if (user.id === loggedIn.id) {
+  const { topicID } = useParams();
+  if (user.id === loggedIn.id || loggedIn.moderator.includes(topicID)) {
     if (!isEdit) {
       return (
         <div className="controls">

@@ -69,7 +69,7 @@ const Comment = ({ topicID, threadID, post, users, setRedirect ,index ,type ,upd
   return (
     <div>
       <div className="user-details">
-        <div className="avatar"></div>
+        <img className="avatar" src={user.avatar} alt="" />
         <div className="info">
           <span className="date">{moment(post.createdAt).calendar()}</span>
           <Link to={`/users/${user.id}`}>

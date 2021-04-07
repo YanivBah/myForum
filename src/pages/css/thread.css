@@ -35,6 +35,9 @@
   height: 60px;
   background: blue;
   border-radius: 50%;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
 }
 
 .thread .user-details .info {

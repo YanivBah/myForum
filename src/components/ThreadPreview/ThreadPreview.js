@@ -7,7 +7,7 @@ const ThreadPreview = ({ thread, users, topicID }) => {
   const creator = users.find((user) => user.id === thread.createdBy);
   return (
     <div className="thread-row" key={`thread${thread.id}`}>
-      <div className="avatar"></div>
+      <img className="avatar" src={creator.avatar} alt=""/>
       <div className="info">
         <div className="title">
           <span className="tag">
