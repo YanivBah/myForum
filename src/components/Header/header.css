@@ -62,8 +62,14 @@ nav ul li:hover a .material-icons {
   background: transparent;
   transition: all 0.3s;
 }
+nav .menu {
+  display: none;
+}
 
 @media only screen and (max-width: 800px) {
+  nav .menu {
+    display: unset;
+  }
   header {
     flex-direction: column;
     align-items: center;

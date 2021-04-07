@@ -4,6 +4,18 @@ import {Login, Logout} from '../Login/Login';
 import './header.css';
 
 const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const updateWidth = () => setWidth(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  },[])
+  
+  useEffect(() => {
+    setopenMenu(width > 800);
+  },[width])
+  const [openMenu, setopenMenu] = useState(width > 800);
+
   const createLinks = () => {
     return settings.links.map(({ name, icon, link }, index) => {
       return (
@@ -27,8 +39,15 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
       </div>
       <nav>
         <ul>
-          {createLinks()}
-          {loggedIn !== null &&
+          <li className="menu" onClick={() => setopenMenu(!openMenu)}>
+            <Link>
+              <span className="material-icons">menu</span>
+              {openMenu ? "Hide Menu" : "Show Menu"}
+            </Link>
+          </li>
+          {openMenu && createLinks()}
+          {openMenu &&
+            loggedIn !== null &&
             settings.loggedIn.map(({ name, icon, link }, index) => {
               return (
                 <li key={`nav${index}`}>
@@ -39,7 +58,8 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
                 </li>
               );
             })}
-          {loggedIn?.settings?.admin &&
+          {openMenu &&
+            loggedIn?.settings?.admin &&
             settings.admin.map(({ name, icon, link }, index) => {
               return (
                 <li key={`nav${index}`}>
@@ -50,11 +70,11 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
                 </li>
               );
             })}
-          {loggedIn === null ? (
+          {openMenu && (loggedIn === null ? (
             <Login SignIn={SignIn} />
           ) : (
             <Logout setLoggedIn={setLoggedIn} />
-          )}
+          ))}
         </ul>
       </nav>
     </header>
