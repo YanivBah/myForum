@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useParams, useHistory} from 'react-router-dom';
+import React, { useState, useRef } from 'react'
+import { useParams } from 'react-router-dom';
 
 import './form.css';
 import Input from "../Input/Input";
@@ -9,12 +9,8 @@ import RichTextEditor from "../RichTextEditor/RichTextEditor";
 const Form = ({ settings, func, update, setRedirect, loggedIn }) => {
   loggedIn === null && setRedirect('/');
   const [created, setCreated] = useState(false);
-  const [controlled, setControlled] = useState([]);
   const itemsRef = useRef([]);
   const params = useParams();
-  const history = useHistory();
-
-  useEffect(() => console.log(itemsRef), [itemsRef]);
 
   const createRef = (el) => {
     if (!itemsRef.current.includes(el)) {
@@ -24,21 +20,21 @@ const Form = ({ settings, func, update, setRedirect, loggedIn }) => {
 
   const createFormElements = () => {
     const formElements = [];
-    settings.elements.forEach((element) => {
+    settings.elements.forEach((element, index) => {
       switch (element.elementType) {
         case "input":
-          const newInput = <Input settings={element} createRef={createRef} />;
+          const newInput = <Input key={`input-${index}`} settings={element} createRef={createRef} />;
           formElements.push(newInput);
           break;
         case "dropdown":
           const newDropdown = (
-            <Dropdown settings={element} createRef={createRef} />
+            <Dropdown key={`dropdown-${index}`} settings={element} createRef={createRef} />
           );
           formElements.push(newDropdown);
           break;
         case "richText":
           const newRichText = (
-            <RichTextEditor createRef={createRef} height="50vh" />
+            <RichTextEditor key={`richtext-${index}`} createRef={createRef} height="50vh" />
           );
           formElements.push(newRichText);
           break;

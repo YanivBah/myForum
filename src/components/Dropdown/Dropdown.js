@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./dropdown.css";
 
 const Dropdown = ({ settings, createRef }) => {
   const { name, title, options } = settings;
   const createOptions = () => {
-    return options.map(({ value, title }) => {
-      return <option value={value}>{title}</option>;
+    return options.map(({ value, title }, index) => {
+      return <option key={`option${index}`} value={value}>{title}</option>;
     });
   };
   return (

@@ -43,8 +43,8 @@ const Topic = ({ topics, users, loggedIn }) => {
         </div>
       </div>
       <div className="container">
-        {topic.threads.map((thread) => (
-          <ThreadPreview thread={thread} users={users} topicID={topicID} />
+        {topic.threads.map((thread, index) => (
+          <ThreadPreview key={`thread-${index}`} thread={thread} users={users} topicID={topicID} />
         ))}
         {/* <TopicThreads users={users} topic={topic} /> */}
       </div>

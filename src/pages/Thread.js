@@ -45,6 +45,7 @@ const Thread = ({ topics, users, update, loggedIn }) => {
           />
           {thread.posts.map((post, index) => (
             <Comment
+              key={`comment-${index}`}
               post={post}
               users={users}
               index={index}

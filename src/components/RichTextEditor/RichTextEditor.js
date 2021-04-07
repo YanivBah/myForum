@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Editor } from "@tinymce/tinymce-react";
-import parse from "html-react-parser";
 
 const RichTextEditor = ({createRef, value = '', height = "300"}) => {
   const [content, setContent] = useState("");

@@ -16,7 +16,6 @@ moment.updateLocale("en", {
 
 const TopicPreview = ({topic, index, users}) => {
   const { title, description, id, threads } = topic;
-  console.log(topic);
   let user;
   if (topic.threads.length > 0) {
     const {createdBy} = topic.threads[0]
@@ -51,7 +50,7 @@ const TopicPreview = ({topic, index, users}) => {
           <div className="topic-last-post">
             <h4>
               <Link to={`/topic/${id}/thread/${threads[0].id}`}>
-                {threads[0].title}
+                {threads[0].title.length > 20 ? threads[0].title.substring(0, 20) + '...' : threads[0].title}
               </Link>
               <span className="material-icons">navigate_next</span>
             </h4>

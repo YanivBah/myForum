@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from './api';
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import './App.css';
 import Header from './components/Header/Header';
 import Form from './components/Form/Form';
@@ -94,15 +94,24 @@ const App = () => {
           {/* <Form settings={options.forms.newTopic} /> */}
         </Route>
 
-        {/* Report */}
+        {/* Dashboard */}
         <Route path="/dashboard" exact>
-          <Dashboard
+          {loggedIn !== null && (
+            <Dashboard
+              settings={options.forms.dashboard}
+              loggedIn={loggedIn}
+              func={updateAccount}
+              update={fetchData}
+              setRedirect={setRedirect}
+            />
+          )}
+          {/* <Dashboard
             settings={options.forms.dashboard}
             loggedIn={loggedIn}
             func={updateAccount}
             update={fetchData}
             setRedirect={setRedirect}
-          />
+          /> */}
         </Route>
 
         {/* CreateThread */}

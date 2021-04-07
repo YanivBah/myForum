@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {Login, Logout} from '../Login/Login';
 import './header.css';
 
@@ -40,10 +40,10 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
       <nav>
         <ul>
           <li className="menu" onClick={() => setopenMenu(!openMenu)}>
-            <Link>
+            <a href="/#">
               <span className="material-icons">menu</span>
               {openMenu ? "Hide Menu" : "Show Menu"}
-            </Link>
+            </a>
           </li>
           {openMenu && createLinks()}
           {openMenu &&

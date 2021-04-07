@@ -3,19 +3,7 @@ import { Link } from 'react-router-dom';
 import moment from "moment";
 import './css/users.css';
 
-// moment.updateLocale("en", {
-//   calendar: {
-//     lastDay: "[Yesterday]",
-//     sameDay: "[Today]",
-//     nextDay: "[Tomorrow]",
-//     lastWeek: "[Last] dddd",
-//     nextWeek: "dddd",
-//     sameElse: "DD/MM/YYYY",
-//   },
-// });
-
 const Users = ({users}) => {
-  console.log(users);
   return (
     <div className="users container">
       <span className="header">Index</span>
@@ -24,7 +12,7 @@ const Users = ({users}) => {
       <span className="header">Registered At</span>
       {users.map((user, index) => {
         return (
-          <React.Fragment>
+          <React.Fragment key={`user-${index}`}>
             <span className="index">{index + 1}.</span>
             <img
               src={user.avatar}
@@ -34,9 +22,7 @@ const Users = ({users}) => {
             <Link to={`/users/${user.id}`}>
               <span>{user.username}</span>
             </Link>
-            <span>
-              {moment(user.createdAt).format('MMMM Do YYYY')}
-            </span>
+            <span>{moment(user.createdAt).format("MMMM Do YYYY")}</span>
           </React.Fragment>
         );
       })}

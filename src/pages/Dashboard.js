@@ -16,8 +16,7 @@ const Dashboard = ({ settings,loggedIn, func, update, setRedirect }) => {
         />
       )
     );
-  } 
-  setRedirect("/");
+  }
   return null;
 };
 
