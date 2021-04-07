@@ -9,8 +9,11 @@ import options from './options';
 import Home from './pages/Home';
 import Topic from './pages/Topic';
 import Thread from './pages/Thread';
+import Users from './pages/Users';
+import Dashboard from './pages/Dashboard';
 
-import { newThread, registerAccount } from "./utilites/crudFuncs";
+
+import { newThread, registerAccount, updateAccount } from "./utilites/crudFuncs";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(null);
@@ -81,14 +84,25 @@ const App = () => {
           />
         </Route>
 
-        {/* Login */}
-        <Route path="/login" exact>
-          <div>You not logged in</div>
+        {/* Users */}
+        <Route path="/users" exact>
+          <Users users={users} />
         </Route>
 
-        {/* CreateTopic */}
-        <Route path="/contactus" exact>
-          <Form settings={options.forms.newTopic} />
+        {/* Report */}
+        <Route path="/report" exact>
+          {/* <Form settings={options.forms.newTopic} /> */}
+        </Route>
+
+        {/* Report */}
+        <Route path="/dashboard" exact>
+          <Dashboard
+            settings={options.forms.dashboard}
+            loggedIn={loggedIn}
+            func={updateAccount}
+            update={fetchData}
+            setRedirect={setRedirect}
+          />
         </Route>
 
         {/* CreateThread */}

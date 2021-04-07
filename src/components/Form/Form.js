@@ -56,6 +56,7 @@ const Form = ({ settings, func, update, setRedirect, loggedIn }) => {
     const redirect = await func(itemsRef.current, params, loggedIn);
     await update();
     setCreated(true);
+    console.log(redirect);
     setRedirect(redirect);
   };
 

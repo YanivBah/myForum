@@ -28,6 +28,28 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
       <nav>
         <ul>
           {createLinks()}
+          {loggedIn !== null &&
+            settings.loggedIn.map(({ name, icon, link }, index) => {
+              return (
+                <li key={`nav${index}`}>
+                  <Link to={link}>
+                    <span className="material-icons">{icon}</span>
+                    {name}
+                  </Link>
+                </li>
+              );
+            })}
+          {loggedIn?.settings?.admin &&
+            settings.admin.map(({ name, icon, link }, index) => {
+              return (
+                <li key={`nav${index}`}>
+                  <Link to={link}>
+                    <span className="material-icons">{icon}</span>
+                    {name}
+                  </Link>
+                </li>
+              );
+            })}
           {loggedIn === null ? (
             <Login SignIn={SignIn} />
           ) : (

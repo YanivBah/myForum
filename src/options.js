@@ -4,16 +4,19 @@ const options = {
     links: [
       { name: "Home", icon: "home", link: "/" },
       { name: "Users", icon: "group", link: "/users" },
-      { name: "Contact Us", icon: "contact_support", link: "/contactus" },
+      { name: "Report", icon: "report", link: "/report" },
     ],
-},
+    loggedIn: [
+      { name: "Dashboard", icon: "manage_accounts", link: "/dashboard" },
+    ],
+    admin: [{ name: "Admin", icon: "admin_panel_settings", link: "/admin" }],
+  },
 
   forms: {
     newTopic: {
       header: "Create New Topic",
       description: "Here you can create new topic for the forum",
       buttonText: "Create",
-      onClick: "function h-e-r-e",
       elements: [
         {
           elementType: "input",
@@ -45,7 +48,6 @@ const options = {
       header: "Create New Thread",
       description: "Here you can create new thread for the forum",
       buttonText: "Create",
-      onClick: "function h-e-r-e",
       elements: [
         {
           elementType: "dropdown",
@@ -75,9 +77,40 @@ const options = {
         },
       ],
     },
+    dashboard: {
+      header: "Account Settings",
+      description: "Change your account settings",
+      buttonText: "Save",
+      elements: [
+        {
+          elementType: "input",
+          name: "username",
+          type: "text",
+          title: "Username",
+          placeholder: "",
+          defaultValue: "",
+        },
+        {
+          elementType: "input",
+          name: "avatar",
+          type: "url",
+          title: "Avatar Link",
+          placeholder: "",
+          defaultValue: "",
+        },
+        {
+          elementType: "dropdown",
+          name: "gender",
+          title: "Gender",
+          options: [
+            { value: "male", title: "Male" },
+            { value: "female", title: "Female" },
+            { value: "other", title: "Other" },
+          ],
+        },
+      ],
+    },
     editTopic: {},
-    login: {},
-    register: {},
   },
 };
 

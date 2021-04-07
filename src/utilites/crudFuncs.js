@@ -87,19 +87,31 @@ export const editComment = async(index, topicID, threadID, content) => {
   currTopic.threads[threadIndex].posts[index].content = content;
   updateTopic(currTopic);
 };
-
+/* Account Functions */
 export const registerAccount = (profile) => {
   const user = {
     username: `${profile.name.replace(" ", "")}`,
     avatar: profile.imageUrl,
     email: profile.email,
+    gender: null,
     moderator: [],
     settings: {
       hideEmail: false,
       hidePosts: false,
       hideThreads: false,
+      admin: false,
     },
     googleId: profile.googleId,
+    createdAt: new Date(),
   };
   api.post("users", user);
+};
+
+export const updateAccount = (refs, params, loggedIn) => {
+  loggedIn.username = refs[0].value;
+  loggedIn.avatar = refs[1].value;
+  loggedIn.gender = refs[2].value;
+  api.put(`users/${loggedIn.id}`, loggedIn);
+
+  return '/users';
 };
