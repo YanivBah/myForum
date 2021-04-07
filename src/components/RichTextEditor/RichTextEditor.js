@@ -11,6 +11,8 @@ const RichTextEditor = ({createRef, value = '', height = "300"}) => {
       outputFormat="html"
       init={{
         selector: ".texteditor",
+        force_br_newlines: true,
+        force_p_newlines: false,
         branding: false,
         elementpath: false,
         statusbar: true,

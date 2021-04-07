@@ -10,7 +10,7 @@ import Home from './pages/Home';
 import Topic from './pages/Topic';
 import Thread from './pages/Thread';
 
-import { newThread } from "./utilites/crudFuncs";
+import { newThread, registerAccount } from "./utilites/crudFuncs";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(null);
@@ -28,37 +28,21 @@ const App = () => {
   const SignIn = async (profile) => {
     const users = await api.get("users");
     const user = users.data.find(user => user.googleId === profile.googleId);
-    user ? setLoggedIn(user) : register(profile);
+    user ? setLoggedIn(user) : registerAccount(profile);
   }
 
-  const register = (profile) => {
-    const user = {
-      username: `${profile.name.replace(" ", "")}`,
-      avatar: profile.imageUrl,
-      email: profile.email,
-      moderator: [],
-      settings: {
-        hideEmail: false,
-        hidePosts: false,
-        hideThreads: false,
-      },
-      googleId: profile.googleId,
-    };
-    api.post("users", user);
-  }
-
-  const createNewTopic = (e) => {
-    const topic = e.target.parentElement.children[1].children[1].value;
-    const description = e.target.parentElement.children[2].children[1].value;
-    const image = e.target.parentElement.children[3].children[1].value;
-    const newTopic = {
-      title: topic,
-      description: description,
-      image: image,
-      threads: [],
-    };
-    api.post("topics", newTopic);
-  };
+  // const createNewTopic = (e) => {
+  //   const topic = e.target.parentElement.children[1].children[1].value;
+  //   const description = e.target.parentElement.children[2].children[1].value;
+  //   const image = e.target.parentElement.children[3].children[1].value;
+  //   const newTopic = {
+  //     title: topic,
+  //     description: description,
+  //     image: image,
+  //     threads: [],
+  //   };
+  //   api.post("topics", newTopic);
+  // };
   
   useEffect(() => {
     fetchData();

@@ -58,6 +58,16 @@
 
 .thread .post {
   padding: 2rem;
+  width: 100%;
+}
+.thread .post p {
+  word-break: break-all;
+  /* white-space: normal; */
+  padding-right: 2rem;
+  overflow-wrap: break-word;
+}
+.thread .post * {
+  max-width: 100%;
 }
 
 .thread .controls {
@@ -108,4 +118,16 @@
   display: inline-block;
   margin: 15px 0;
   padding: 1rem 3rem;
+}
+
+@media only screen and (max-width: 800px) {
+  .thread {
+    margin: 10px 1rem;
+  }
+  .thread .post {
+    padding: 1rem;
+    /* overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap; */
+  }
 }

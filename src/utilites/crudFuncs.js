@@ -87,3 +87,19 @@ export const editComment = async(index, topicID, threadID, content) => {
   currTopic.threads[threadIndex].posts[index].content = content;
   updateTopic(currTopic);
 };
+
+export const registerAccount = (profile) => {
+  const user = {
+    username: `${profile.name.replace(" ", "")}`,
+    avatar: profile.imageUrl,
+    email: profile.email,
+    moderator: [],
+    settings: {
+      hideEmail: false,
+      hidePosts: false,
+      hideThreads: false,
+    },
+    googleId: profile.googleId,
+  };
+  api.post("users", user);
+};

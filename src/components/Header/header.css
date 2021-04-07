@@ -1,7 +1,6 @@
 header {
   background: var(--primary-color);
-  display: grid;
-  grid-template-columns: repeat(16, 1fr);
+  display: flex;
   align-items: baseline;
   padding: 0 15px;
   user-select: none;
@@ -61,4 +60,19 @@ nav ul li:hover a {
 nav ul li:hover a .material-icons {
   background: transparent;
   transition: all 0.3s;
+}
+
+@media only screen and (max-width: 800px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+  header ul {
+    display: flex;
+    flex-direction: column;
+  }
+  nav ul li:hover a {
+    transform: none;
+    padding: 5px 10px;
+  }
 }
