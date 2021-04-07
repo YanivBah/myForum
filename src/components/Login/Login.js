@@ -19,21 +19,33 @@ export const Login = ({ SignIn }) => {
       onFailure={onFailure}
       cookiePolicy={"single_host_origin"}
       isSignedIn={true}
+      render={(renderProps) => (
+        <li onClick={renderProps.onClick} className="login-btn">
+          <img src="/assets/GoogleLogo.svg" alt="" />
+          Login
+        </li>
+      )}
     />
   );
 };
 
-export const Logout = () => {
+export const Logout = ({ setLoggedIn }) => {
   const onSuccess = () => {
-    alert('Logout made successfully');
-  }
+    setLoggedIn(null);
+  };
 
   return (
     <GoogleLogout
       clientId={clientID}
       buttonText="Logout"
       onLogoutSuccess={onSuccess}
+      render={(renderProps) => (
+        <li onClick={renderProps.onClick} className="login-btn">
+          <img src="/assets/GoogleLogo.svg" alt="" />
+          Logout
+        </li>
+      )}
     />
   );
-}
+};
 

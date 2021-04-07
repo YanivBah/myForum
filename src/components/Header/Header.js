@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import {Login, Logout} from '../Login/Login';
 import './header.css';
 
-const Header = ({ settings, loggedIn, SignIn }) => {
+const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
   const createLinks = () => {
     return settings.links.map(({ name, icon, link }, index) => {
       return (
@@ -28,7 +28,11 @@ const Header = ({ settings, loggedIn, SignIn }) => {
       <nav>
         <ul>
           {createLinks()}
-          <li>{loggedIn === null ? <Login SignIn={SignIn} /> : <Logout />}</li>
+          {loggedIn === null ? (
+            <Login SignIn={SignIn} />
+          ) : (
+            <Logout setLoggedIn={setLoggedIn} />
+          )}
         </ul>
       </nav>
     </header>

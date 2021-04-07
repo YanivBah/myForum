@@ -58,6 +58,7 @@ const App = () => {
           settings={options.header}
           loggedIn={loggedIn}
           SignIn={SignIn}
+          setLoggedIn={setLoggedIn}
         />
 
         {/* Homepage */}

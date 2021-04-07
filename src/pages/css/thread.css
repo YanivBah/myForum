@@ -62,7 +62,6 @@
 }
 .thread .post p {
   word-break: break-all;
-  /* white-space: normal; */
   padding-right: 2rem;
   overflow-wrap: break-word;
 }

@@ -66,6 +66,7 @@ nav ul li:hover a .material-icons {
   header {
     flex-direction: column;
     align-items: center;
+    padding-bottom: 15px;
   }
   header ul {
     display: flex;
