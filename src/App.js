@@ -11,6 +11,7 @@ import Topic from './pages/Topic';
 import Thread from './pages/Thread';
 import Users from './pages/Users';
 import Dashboard from './pages/Dashboard';
+import User from './pages/User';
 
 
 import { newThread, registerAccount, updateAccount } from "./utilites/crudFuncs";
@@ -87,6 +88,11 @@ const App = () => {
         {/* Users */}
         <Route path="/users" exact>
           <Users users={users} />
+        </Route>
+
+        {/* User */}
+        <Route path="/users/:userID" exact>
+          <User users={users} topics={topics} />
         </Route>
 
         {/* Report */}

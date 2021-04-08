@@ -1,0 +1,58 @@
+.user-page.container {
+  background: #fff;
+  padding: 2rem 2rem;
+  border-radius: 5px;
+  box-shadow: 0 5px 12px 0 rgb(42 51 83 / 12%), 0 0 5px rgb(0 0 0 / 6%);
+  max-width: 144rem;
+  align-items: center;
+  text-align: center;
+  margin: 2rem auto;
+}
+.user-page .avatar {
+  width: 300px;
+  border-radius: 50%;
+  box-shadow: 0 5px 12px 0 rgb(42 51 83 / 12%), 0 0 5px rgb(0 0 0 / 20%);
+  position: relative;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
+}
+.user-page h2 {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  background: rgba(255, 255, 255, 0.63);
+  padding: 0 10rem;
+  color: black;
+}
+
+.user-page .center {
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.user-threads {
+  box-shadow: 0 5px 12px 0 rgb(42 51 83 / 12%), 0 0 5px rgb(0 0 0 / 20%);
+  /* border: 1px solid black; */
+  margin: 3rem auto;
+  padding: 1rem;
+  max-width: 100rem;
+  border-radius: 7px;
+}
+.user-threads h3 {
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+.user-threads .index {
+  padding: 2px 5px 2px 10px;
+  background: lightgray;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.user-threads .line {
+  margin: 10px 0;
+}

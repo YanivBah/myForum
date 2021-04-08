@@ -78,7 +78,7 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
             (loggedIn === null ? (
               <Login SignIn={SignIn} />
             ) : (
-              <Logout setLoggedIn={setLoggedIn} />
+              <Logout setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
             ))}
         </ul>
       </nav>

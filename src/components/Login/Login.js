@@ -29,7 +29,7 @@ export const Login = ({ SignIn }) => {
   );
 };
 
-export const Logout = ({ setLoggedIn }) => {
+export const Logout = ({ setLoggedIn, loggedIn }) => {
   const onSuccess = () => {
     setLoggedIn(null);
   };
@@ -41,7 +41,7 @@ export const Logout = ({ setLoggedIn }) => {
       onLogoutSuccess={onSuccess}
       render={(renderProps) => (
         <li onClick={renderProps.onClick} className="login-btn">
-          <img src="/assets/GoogleLogo.svg" alt="" />
+          {loggedIn !== null && <img src={loggedIn.avatar} alt="" />}
           Logout
         </li>
       )}

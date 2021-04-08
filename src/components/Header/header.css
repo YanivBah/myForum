@@ -9,7 +9,6 @@ header {
 header .logo {
   grid-column: 1 / span 2;
   padding: 2rem 0;
-  min-width: 161px;
 }
 
 header a {
@@ -93,6 +92,14 @@ nav .menu {
   nav ul li:hover .menu-a {
     transform: none;
     padding: 5px 10px;
+  }
+  header .logo {
+    padding: 2rem 0;
+    font-size: 3rem;
+  }
+  header .logo .material-icons {
+    font-size: 50px;
+    margin-right: 5px;
   }
 }
 
