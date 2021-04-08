@@ -57,14 +57,14 @@ export const editThread = async (topicID, threadID, content) => {
 };
 
 /* Comments Functions */
-export const addComment = async (topicID, threadID, content) => {
+export const addComment = async (topicID, threadID, content, loggedIn) => {
   const data = await fetchTopics();
   const currTopic = data.find((topic) => topic.id === topicID);
   const index = currTopic.threads.findIndex((thread) => thread.id === threadID);
   const post = {
     content: content,
     createdAt: new Date(),
-    createdBy: "1",
+    createdBy: loggedIn.id,
     editedAt: null,
     id: currTopic.threads[index].posts.length + 1,
   };

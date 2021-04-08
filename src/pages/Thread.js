@@ -14,7 +14,8 @@ const Thread = ({ topics, users, update, loggedIn }) => {
     await addComment(
       topicID,
       threadID,
-      commentEditorRef.current.editor.getContent({ format: "html" })
+      commentEditorRef.current.editor.getContent({ format: "html" }),
+      loggedIn
     );
     commentEditorRef.current.editor.resetContent();
     await update();
