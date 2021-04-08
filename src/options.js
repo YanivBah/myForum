@@ -4,7 +4,7 @@ const options = {
     links: [
       { name: "Home", icon: "home", link: "/" },
       { name: "Users", icon: "group", link: "/users" },
-      { name: "Report", icon: "report", link: "/report" },
+      // { name: "Report", icon: "report", link: "/report" },
     ],
     loggedIn: [
       { name: "Dashboard", icon: "manage_accounts", link: "/dashboard" },

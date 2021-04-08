@@ -31,19 +31,23 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
 
   return (
     <header>
-      <div className="logo">
-        <h2>
-          <span className="material-icons">mode_comment</span>
-          {settings.logo}
-        </h2>
-      </div>
+      <Link to="/">
+        <div className="logo">
+          <h2>
+            <span className="material-icons">mode_comment</span>
+            {settings.logo}
+          </h2>
+        </div>
+      </Link>
       <nav>
         <ul>
           <li className="menu" onClick={() => setopenMenu(!openMenu)}>
-            <a href="/#">
-              <span className="material-icons">menu</span>
+            <div className="menu-a">
+              <span className="material-icons">
+                {openMenu ? "cancel" : "menu"}
+              </span>
               {openMenu ? "Hide Menu" : "Show Menu"}
-            </a>
+            </div>
           </li>
           {openMenu && createLinks()}
           {openMenu &&
@@ -70,11 +74,12 @@ const Header = ({ settings, loggedIn, SignIn, setLoggedIn }) => {
                 </li>
               );
             })}
-          {openMenu && (loggedIn === null ? (
-            <Login SignIn={SignIn} />
-          ) : (
-            <Logout setLoggedIn={setLoggedIn} />
-          ))}
+          {openMenu &&
+            (loggedIn === null ? (
+              <Login SignIn={SignIn} />
+            ) : (
+              <Logout setLoggedIn={setLoggedIn} />
+            ))}
         </ul>
       </nav>
     </header>
